@@ -454,7 +454,7 @@
             background: linear-gradient(135deg, #00b4d8 0%, var(--success) 100%);
         }
 
-        /* Ad Container */
+        /* Ad Container - FIXED */
         .ad-container {
             margin: 40px 0;
             text-align: center;
@@ -462,12 +462,32 @@
             border-radius: var(--radius);
             padding: 20px;
             box-shadow: var(--shadow);
+            min-height: 280px; /* Added minimum height for ad container */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .ad-container p {
             color: var(--gray);
             font-size: 0.9rem;
             margin-bottom: 10px;
+        }
+
+        .ad-container ins {
+            width: 100%;
+            max-width: 728px;
+            min-height: 90px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Responsive ads */
+        @media (max-width: 768px) {
+            .ad-container ins {
+                min-height: 250px;
+            }
         }
 
         /* Features */
@@ -840,7 +860,7 @@
             </div>
         </section>
 
-        <!-- Ad Unit -->
+        <!-- Ad Unit - FIXED -->
         <div class="ad-container">
             <p>Advertisement</p>
             <ins class="adsbygoogle"
@@ -849,9 +869,6 @@
                  data-ad-slot="8785857866"
                  data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
         </div>
 
         <section class="features">
@@ -921,6 +938,18 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Set current year in footer
             document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            // Initialize AdSense ads - FIXED
+            // Wait for the adsbygoogle script to load
+            if (typeof(adsbygoogle) !== 'undefined') {
+                // Push the ad only once when the page loads
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            } else {
+                // If not loaded yet, wait for it
+                window.addEventListener('load', function() {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                });
+            }
 
             // Mobile menu toggle
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
@@ -1154,7 +1183,7 @@
                     const canvas = document.createElement('canvas');
                     canvas.width = newWidth;
                     canvas.height = newHeight;
-                    const ctx = canvas.getContext('2d');
+                    const ctx = canvas.getcontext('2d');
 
                     // Draw image on canvas
                     ctx.drawImage(img, 0, 0, newWidth, newHeight);

@@ -499,6 +499,9 @@
             overflow: hidden;
             margin-bottom: 20px;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .video-container::before {
@@ -1017,11 +1020,31 @@
             cursor: pointer;
             z-index: 999;
             transition: all 0.3s;
+            display: none; /* Hidden by default */
         }
 
         .fab:hover {
             transform: translateY(-5px) scale(1.1);
             box-shadow: 0 15px 30px rgba(108, 92, 231, 0.5);
+        }
+        
+        /* AdSense specific styling */
+        .adsbygoogle {
+            display: block;
+            width: 100%;
+            height: 90px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        /* Ad placeholder when no ads are available */
+        .ad-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-weight: 500;
+            background: linear-gradient(to right, #f5f5f5, #e0e0e0);
         }
     </style>
 </head>
@@ -1049,17 +1072,12 @@
 
         <!-- AdSense Banner Ad -->
         <div class="ad-container">
-            <div class="ad-placeholder">
-                <ins class="adsbygoogle"
-                    style="display:block"
-                    data-ad-client="ca-app-pub-3889866166086688"
-                    data-ad-slot="8785857866"
-                    data-ad-format="auto"
-                    data-full-width-responsive="true"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-app-pub-3889866166086688"
+                data-ad-slot="8785857866"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
         </div>
 
         <div class="main-tabs">
@@ -1228,17 +1246,12 @@
 
         <!-- AdSense Banner Ad -->
         <div class="ad-container">
-            <div class="ad-placeholder">
-                <ins class="adsbygoogle"
-                    style="display:block"
-                    data-ad-client="ca-app-pub-3889866166086688"
-                    data-ad-slot="8785857866"
-                    data-ad-format="auto"
-                    data-full-width-responsive="true"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-app-pub-3889866166086688"
+                data-ad-slot="8785857866"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
         </div>
 
         <footer>
@@ -1279,6 +1292,9 @@
                     // Update active tab content
                     tabContents.forEach(content => content.classList.remove('active'));
                     document.getElementById(tabId).classList.add('active');
+                    
+                    // Refresh ads when switching tabs
+                    setTimeout(refreshAds, 300);
                 });
             });
 
@@ -1311,7 +1327,7 @@
                 e.stopPropagation();
             }
 
-            ['dragenter', 'dragover'].forEach(eventName => {
+            ['dragenter', 'dragoover'].forEach(eventName => {
                 dropArea.addEventListener(eventName, highlight, false);
             });
 
@@ -1685,23 +1701,29 @@
                 }, 500);
             });
 
-            // Initialize AdSense ads
+            // AdSense functions
             function initAds() {
-                // Replace with your actual AdSense code
-                const adScript = document.createElement('script');
-                adScript.async = true;
-                adScript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-app-pub-3889866166086688/8785857866";
-                adScript.crossOrigin = "anonymous";
-                document.head.appendChild(adScript);
+                // Initialize AdSense ads
+                (adsbygoogle = window.adsbygoogle || []).push({});
                 
-                // Load ads after a short delay to ensure DOM is ready
+                // Show help button after page loads
                 setTimeout(() => {
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                }, 1000);
+                    document.getElementById('helpFab').style.display = 'flex';
+                }, 2000);
             }
             
-            // Call the ad initialization function
-            initAds();
+            function refreshAds() {
+                // Refresh AdSense ads when content changes
+                if (typeof adsbygoogle !== 'undefined') {
+                    adsbygoogle = window.adsbygoogle || [];
+                    adsbygoogle.push({});
+                }
+            }
+            
+            // Initialize ads when page loads
+            window.onload = function() {
+                setTimeout(initAds, 500);
+            };
         });
     </script>
 </body>

@@ -462,7 +462,7 @@
             border-radius: var(--radius);
             padding: 20px;
             box-shadow: var(--shadow);
-            min-height: 280px; /* Added minimum height for ad container */
+            min-height: 280px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -939,17 +939,26 @@
             // Set current year in footer
             document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-            // Initialize AdSense ads - FIXED
-            // Wait for the adsbygoogle script to load
-            if (typeof(adsbygoogle) !== 'undefined') {
-                // Push the ad only once when the page loads
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            } else {
-                // If not loaded yet, wait for it
-                window.addEventListener('load', function() {
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                });
+            // Initialize AdSense ads - FIXED VERSION
+            function initializeAds() {
+                // Check if adsbygoogle is loaded and is an array
+                if (window.adsbygoogle && Array.isArray(window.adsbygoogle)) {
+                    try {
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                        console.log('AdSense ad initialized successfully');
+                    } catch (e) {
+                        console.error('Error initializing AdSense:', e);
+                    }
+                } else {
+                    // If not ready yet, try again shortly
+                    setTimeout(initializeAds, 100);
+                }
             }
+
+            // Start trying to initialize after page load
+            window.addEventListener('load', function() {
+                setTimeout(initializeAds, 500);
+            });
 
             // Mobile menu toggle
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
@@ -1183,7 +1192,7 @@
                     const canvas = document.createElement('canvas');
                     canvas.width = newWidth;
                     canvas.height = newHeight;
-                    const ctx = canvas.getcontext('2d');
+                    const ctx = canvas.getContext('2d'); // Fixed typo here (was getcontext)
 
                     // Draw image on canvas
                     ctx.drawImage(img, 0, 0, newWidth, newHeight);

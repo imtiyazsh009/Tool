@@ -1,1 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PDF to Text</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+</head>
+<body>
+
+<header><nav><a href="../index.html">Home</a></nav></header>
+
+<div class="container">
+<div class="card">
+<h1>PDF to Text</h1>
+<input type="file" id="pdf" accept="application/pdf">
+<button onclick="extract()">Extract</button>
+<pre id="output"></pre>
+</div>
+</div>
+
+<script>
+async function extract(){
+ const f=document.getElementById("pdf").files[0];
+ if(!f)return;
+ const pdf=await pdfjsLib.getDocument(URL.createObjectURL(f)).promise;
+ let txt="";
+ for(let i=1;i<=pdf.numPages;i++){
+  const p=await pdf.getPage(i);
+  const c=await p.getTextContent();
+  txt+=c.items.map(i=>i.str).join(" ")+"\n\n";
+ }
+ document.getElementById("output").textContent=txt;
+}
+</script>
+
+<footer></footer>
+</body>
+</html>
 

@@ -1,58 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Image Compressor – MediaTools</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<script async
-src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXX"
-crossorigin="anonymous"></script>
+<title>Image Compressor</title>
+<link rel="stylesheet" href="../assets/style.css">
 </head>
+<body>
 
-<body style="font-family:Poppins,Arial;background:#f5f7fa">
+<header><nav><a href="../index.html">Home</a></nav></header>
 
-<header style="background:#1a1a2e;color:#fff;padding:15px">
-  <a href="index.html" style="color:#fff;text-decoration:none">MediaTools</a>
-</header>
-
-<main style="max-width:1000px;margin:auto;padding:20px">
-
+<div class="container">
+<div class="card">
 <h1>Image Compressor</h1>
-<p>
-Compress JPG, PNG and WebP images easily.
-All processing happens in your browser.
-</p>
 
-<!-- Ad -->
-<ins class="adsbygoogle"
-style="display:block"
-data-ad-client="ca-pub-XXXXXXXXXXXXXXX"
-data-ad-slot="1234567890"
-data-ad-format="auto"
-data-full-width-responsive="true"></ins>
-<script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+<input type="file" id="file" accept="image/*">
+<label>Quality: <span id="q">70</span>%</label>
+<input type="range" min="10" max="100" value="70" id="quality">
+<br><br>
+<button onclick="compress()">Compress</button>
 
-<section>
-<h2>How this tool works</h2>
-<p>
-Upload an image, choose compression level,
-and download the optimized image instantly.
-</p>
+<div id="out"></div>
+</div>
+</div>
 
-<h2>Is it safe?</h2>
-<p>
-Yes. Your files never leave your device.
-We do not store or track your data.
-</p>
-</section>
+<script>
+const q=document.getElementById("quality");
+const qv=document.getElementById("q");
+q.oninput=()=>qv.textContent=q.value;
 
-</main>
+function compress(){
+ const f=document.getElementById("file").files[0];
+ if(!f)return alert("Select image");
+ const img=new Image();
+ img.onload=function(){
+  const c=document.createElement("canvas");
+  c.width=img.width;c.height=img.height;
+  c.getContext("2d").drawImage(img,0,0);
+  const data=c.toDataURL("image/jpeg",q.value/100);
+  document.getElementById("out").innerHTML=
+   `<img src="${data}" style="max-width:100%"><br>
+    <a href="${data}" download="compressed.jpg"><button>Download</button></a>`;
+ };
+ img.src=URL.createObjectURL(f);
+}
+</script>
 
-<footer style="background:#1a1a2e;color:#fff;padding:15px">
-<a href="privacy-policy.html" style="color:#fff">Privacy Policy</a> |
-<a href="terms.html" style="color:#fff">Terms</a>
-</footer>
-
+<footer></footer>
 </body>
 </html>

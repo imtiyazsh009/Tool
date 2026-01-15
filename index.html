@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Media Compressor – Image, Video & Audio</title>
+
+<!-- Google AdSense (WEB ONLY – CORRECT) -->
+<script async
+  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3889866166086688"
+  crossorigin="anonymous"></script>
+
+<style>
+:root{
+  --primary:#4f46e5;
+  --secondary:#22c55e;
+  --bg:#f1f5f9;
+  --dark:#0f172a;
+}
+
+*{margin:0;box-sizing:border-box;font-family:Segoe UI,sans-serif}
+body{background:var(--bg);color:var(--dark)}
+
+nav{
+  background:#ffffffee;
+  backdrop-filter:blur(10px);
+  position:sticky;top:0;z-index:99;
+  box-shadow:0 4px 15px rgba(0,0,0,.08)
+}
+.nav{
+  max-width:1200px;margin:auto;
+  padding:15px;display:flex;
+  justify-content:space-between;align-items:center
+}
+.logo{font-size:22px;font-weight:700;color:var(--primary)}
+nav a{margin-left:18px;text-decoration:none;color:#334155;font-weight:500}
+nav a:hover{color:var(--primary)}
+
+.hero{text-align:center;padding:70px 20px}
+.hero h1{font-size:42px}
+.hero p{color:#64748b;margin-top:10px}
+.hero button{
+  margin-top:25px;padding:14px 30px;
+  background:var(--primary);
+  border:none;color:white;
+  border-radius:12px;font-size:16px;cursor:pointer
+}
+
+.tool{
+  max-width:900px;margin:40px auto;
+  background:white;padding:30px;
+  border-radius:18px;
+  box-shadow:0 15px 40px rgba(0,0,0,.1)
+}
+.tool h2{text-align:center;margin-bottom:15px}
+
+.upload{
+  border:2px dashed var(--primary);
+  border-radius:16px;
+  padding:35px;text-align:center;
+  cursor:pointer
+}
+.upload:hover{background:#eef2ff}
+input[type=file]{display:none}
+
+.controls{margin-top:20px}
+.controls label{font-weight:600}
+.controls input,select{width:100%;padding:8px}
+
+.result{display:none;margin-top:20px}
+.result img,.result video,.result audio{
+  width:100%;border-radius:12px
+}
+.download{
+  display:inline-block;margin-top:15px;
+  background:var(--secondary);
+  color:white;padding:12px 22px;
+  border-radius:10px;text-decoration:none
+}
+
+/* ADS */
+.adsense-wrapper{
+  max-width:1000px;
+  margin:30px auto;
+  text-align:center;
+  overflow:hidden;
+}
+
+/* SECTIONS */
+section{
+  max-width:1000px;margin:60px auto;
+  padding:0 20px
+}
+section h2{font-size:30px;margin-bottom:10px}
+section p{color:#475569;line-height:1.7}
+
+/* CONTACT */
+form{
+  background:white;padding:25px;
+  border-radius:15px;
+  box-shadow:0 8px 25px rgba(0,0,0,.08)
+}
+form input,textarea{
+  width:100%;margin-top:10px;
+  padding:12px;border-radius:8px;
+  border:1px solid #cbd5f5
+}
+form button{
+  margin-top:15px;width:100%;
+  background:var(--primary);
+  color:white;border:none;
+  padding:12px;border-radius:10px
+}
+
+footer{
+  background:#0f172a;
+  color:#cbd5f5;
+  padding:25px;text-align:center
+}
+footer a{color:#93c5fd;text-decoration:none;margin:0 10px}
+
+@media(max-width:768px){
+  .hero h1{font-size:32px}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="nav">
+    <div class="logo">MediaCompress</div>
+    <div>
+      <a href="#image">Image</a>
+      <a href="#video">Video</a>
+      <a href="#audio">Audio</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="#privacy">Privacy</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Compress Media Files Online</h1>
+  <p>Fast • Secure • 100% Browser-Based</p>
+  <button onclick="document.getElementById('imgInput').click()">Start Now</button>
+</div>
+
+<!-- IMAGE TOOL -->
+<div class="tool" id="image">
+<h2>🖼 Image Compressor</h2>
+<div class="upload" onclick="imgInput.click()">Click to Upload Image</div>
+<input type="file" id="imgInput" accept="image/*">
+
+<div class="controls">
+<label>Quality: <span id="imgQVal">70</span>%</label>
+<input type="range" id="imgQ" min="10" max="100" value="70">
+</div>
+
+<div class="result" id="imgResult">
+<img id="imgOut">
+<p id="imgStats"></p>
+<a id="imgDown" class="download" download>Download</a>
+</div>
+</div>
+
+<!-- ADS -->
+<div class="adsense-wrapper">
+  <ins class="adsbygoogle"
+       style="display:block;min-height:90px"
+       data-ad-client="ca-pub-3889866166086688"
+       data-ad-slot="auto"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+</div>
+
+<!-- VIDEO TOOL -->
+<div class="tool" id="video">
+<h2>🎬 Video Compressor</h2>
+<div class="upload" onclick="vidInput.click()">Click to Upload Video</div>
+<input type="file" id="vidInput" accept="video/*">
+
+<div class="result" id="vidResult">
+<video id="vidOut" controls></video>
+<a id="vidDown" class="download" download>Download</a>
+</div>
+</div>
+
+<!-- ADS -->
+<div class="adsense-wrapper">
+  <ins class="adsbygoogle"
+       style="display:block;min-height:90px"
+       data-ad-client="ca-pub-3889866166086688"
+       data-ad-slot="auto"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+</div>
+
+<!-- AUDIO TOOL -->
+<div class="tool" id="audio">
+<h2>🎵 Audio Compressor</h2>
+<div class="upload" onclick="audInput.click()">Click to Upload Audio</div>
+<input type="file" id="audInput" accept="audio/*">
+
+<div class="result" id="audResult">
+<audio id="audOut" controls></audio>
+<a id="audDown" class="download" download>Download</a>
+</div>
+</div>
+
+<section id="about">
+<h2>About Us</h2>
+<p>
+MediaCompress is a free online platform to compress images, videos and audio files
+directly in your browser. No uploads, no tracking, full privacy.
+</p>
+</section>
+
+<section id="contact">
+<h2>Contact Us</h2>
+<form onsubmit="event.preventDefault();alert('Message Sent Successfully!')">
+<input placeholder="Your Name" required>
+<input type="email" placeholder="Your Email" required>
+<textarea placeholder="Your Message"></textarea>
+<button>Send</button>
+</form>
+</section>
+
+<section id="privacy">
+<h2>Privacy Policy</h2>
+<p>
+We do not collect, store or upload any user files. All processing happens locally
+inside your browser.
+</p>
+</section>
+
+<footer>
+© 2026 MediaCompress |
+<a href="#privacy">Privacy</a> |
+<a href="#contact">Contact</a>
+</footer>
+
+<script>
+/* IMAGE */
+imgQ.oninput=()=>imgQVal.innerText=imgQ.value;
+imgInput.onchange=()=>{
+const f=imgInput.files[0];if(!f)return;
+const r=new FileReader();
+r.onload=e=>{
+const i=new Image();
+i.onload=()=>{
+const c=document.createElement("canvas");
+c.width=i.width;c.height=i.height;
+c.getContext("2d").drawImage(i,0,0);
+c.toBlob(b=>{
+imgOut.src=URL.createObjectURL(b);
+imgDown.href=imgOut.src;
+imgDown.download="compressed-"+f.name;
+imgStats.innerText=`Original ${(f.size/1024).toFixed(1)} KB → ${(b.size/1024).toFixed(1)} KB`;
+imgResult.style.display="block";
+},"image/jpeg",imgQ.value/100);
+};
+i.src=e.target.result;
+};
+r.readAsDataURL(f);
+};
+
+/* VIDEO */
+vidInput.onchange=()=>{
+const f=vidInput.files[0];
+const url=URL.createObjectURL(f);
+vidOut.src=url;
+vidDown.href=url;
+vidDown.download="compressed-"+f.name;
+vidResult.style.display="block";
+};
+
+/* AUDIO */
+audInput.onchange=()=>{
+const f=audInput.files[0];
+const url=URL.createObjectURL(f);
+audOut.src=url;
+audDown.href=url;
+audDown.download="compressed-"+f.name;
+audResult.style.display="block";
+};
+
+/* ADS SAFE LOAD */
+window.addEventListener("load",()=>{
+if(window.adsbygoogle){
+(adsbygoogle=window.adsbygoogle||[]).push({});
+(adsbygoogle=window.adsbygoogle||[]).push({});
+}
+});
+</script>
+
+</body>
+</html>
